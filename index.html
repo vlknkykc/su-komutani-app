@@ -3,227 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>👑 Su Komutanı</title>
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
+<link rel="stylesheet" href="style.css">
 
-body{
-background:#0d0d0d;
-color:white;
-padding:20px;
-max-width:500px;
-margin:auto;
-}
-
-.header{
-text-align:center;
-margin-bottom:20px;
-}
-
-.header h1{
-color:#d4af37;
-font-size:32px;
-}
-
-.card{
-background:#161616;
-border:1px solid #d4af37;
-border-radius:16px;
-padding:18px;
-margin-bottom:15px;
-}
-
-h2{
-color:#d4af37;
-margin-bottom:10px;
-}
-
-.progress{
-height:25px;
-background:#333;
-border-radius:20px;
-overflow:hidden;
-margin-top:10px;
-}
-
-.bar{
-height:100%;
-width:0%;
-background:linear-gradient(90deg,#b8860b,#ffd700);
-}
-
-button{
-background:#d4af37;
-border:none;
-padding:10px 14px;
-margin:4px;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
-}
-
-input{
-width:100%;
-padding:10px;
-margin-top:10px;
-border-radius:10px;
-border:none;
-}
-
-.value{
-font-size:24px;
-font-weight:bold;
-margin-top:10px;
-}
-</style>
 </head>
-
 <body>
 
-<div class="header">
-<h1>👑 Su Komutanı</h1>
-<p>Padişah Sürümü</p>
+<div class="container">
+
+    <div class="header">
+        <h1>👑 Su Komutanı</h1>
+        <p>Padişah Sürümü</p>
+    </div>
+
+    <div class="card">
+
+        <h2>📅 Bugün</h2>
+
+        <div id="todayDate"></div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>💧 Günlük Su</h2>
+
+        <div class="big-number" id="waterValue">
+            0 / 4000 ml
+        </div>
+
+        <div class="progress">
+            <div class="bar" id="waterBar"></div>
+        </div>
+
+        <div class="button-grid">
+            <button onclick="addWater(250)">250ml</button>
+            <button onclick="addWater(500)">500ml</button>
+            <button onclick="addWater(750)">750ml</button>
+            <button onclick="addWater(1000)">1L</button>
+            <button onclick="addWater(1500)">1.5L</button>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>🍗 Protein</h2>
+
+        <input
+        type="number"
+        id="proteinInput"
+        placeholder="Protein gramı">
+
+        <button onclick="addProtein()">
+            Protein Ekle
+        </button>
+
+        <div class="big-number">
+            <span id="proteinValue">0</span> / 130 g
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>🔥 Kalori</h2>
+
+        <input
+        type="number"
+        id="calorieInput"
+        placeholder="Kalori">
+
+        <button onclick="addCalories()">
+            Kalori Ekle
+        </button>
+
+        <div class="big-number">
+            <span id="calorieValue">0</span> kcal
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>⚖️ Kilo Takibi</h2>
+
+        <input
+        type="number"
+        id="weightInput"
+        placeholder="Kilon">
+
+        <button onclick="saveWeight()">
+            Kaydet
+        </button>
+
+        <div id="weightText"></div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>📏 Bel Ölçüsü</h2>
+
+        <input
+        type="number"
+        id="waistInput"
+        placeholder="Bel çevresi">
+
+        <button onclick="saveWaist()">
+            Kaydet
+        </button>
+
+        <div id="waistText"></div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>🏋️ Antrenman</h2>
+
+        <button onclick="workoutDone()">
+            Antrenman Yapıldı
+        </button>
+
+        <div id="workoutStatus">
+            Bekleniyor
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>📊 Günlük Geçmiş</h2>
+
+        <div id="historyBox"></div>
+
+    </div>
+
 </div>
 
-<div class="card">
-<h2>💧 Günlük Su</h2>
-<div class="value" id="waterText">0 / 4000 ml</div>
-
-<div class="progress">
-<div class="bar" id="waterBar"></div>
-</div>
-
-<br>
-
-<button onclick="addWater(250)">250ml</button>
-<button onclick="addWater(500)">500ml</button>
-<button onclick="addWater(750)">750ml</button>
-<button onclick="addWater(1000)">1L</button>
-<button onclick="addWater(1500)">1.5L</button>
-</div>
-
-<div class="card">
-<h2>🍗 Protein</h2>
-
-<input type="number" id="proteinInput" placeholder="Protein gramı ekle">
-
-<br><br>
-
-<button onclick="addProtein()">Protein Ekle</button>
-
-<div class="value">
-<span id="proteinValue">0</span> g
-</div>
-
-</div>
-
-<div class="card">
-<h2>🔥 Kalori</h2>
-
-<input type="number" id="calorieInput" placeholder="Kalori ekle">
-
-<br><br>
-
-<button onclick="addCalories()">Kalori Ekle</button>
-
-<div class="value">
-<span id="calorieValue">0</span> kcal
-</div>
-
-</div>
-
-<div class="card">
-<h2>🏋️ Antrenman</h2>
-
-<button onclick="workoutDone()">Antrenman Yapıldı</button>
-
-<div class="value" id="workoutStatus">
-Bugün yapılmadı
-</div>
-
-</div>
-
-<script>
-
-let water=Number(localStorage.getItem("water"))||0;
-let protein=Number(localStorage.getItem("protein"))||0;
-let calories=Number(localStorage.getItem("calories"))||0;
-
-function update(){
-
-document.getElementById("waterText").innerHTML=
-water+" / 4000 ml";
-
-document.getElementById("waterBar").style.width=
-Math.min((water/4000)*100,100)+"%";
-
-document.getElementById("proteinValue").innerHTML=protein;
-
-document.getElementById("calorieValue").innerHTML=calories;
-
-}
-
-function addWater(amount){
-water+=amount;
-localStorage.setItem("water",water);
-update();
-}
-
-function addProtein(){
-let value=
-Number(document.getElementById("proteinInput").value);
-
-if(!value)return;
-
-protein+=value;
-
-localStorage.setItem("protein",protein);
-
-document.getElementById("proteinInput").value="";
-
-update();
-}
-
-function addCalories(){
-
-let value=
-Number(document.getElementById("calorieInput").value);
-
-if(!value)return;
-
-calories+=value;
-
-localStorage.setItem("calories",calories);
-
-document.getElementById("calorieInput").value="";
-
-update();
-
-if(calories>2000){
-alert("⚠️ 2000 kcal sınırını geçtin!");
-}
-}
-
-function workoutDone(){
-
-localStorage.setItem("workout","Yapıldı ✅");
-
-document.getElementById("workoutStatus").innerHTML=
-"Yapıldı ✅";
-}
-
-document.getElementById("workoutStatus").innerHTML=
-localStorage.getItem("workout") || "Bugün yapılmadı";
-
-update();
-
-</script>
+<script src="app.js"></script>
 
 </body>
 </html>
